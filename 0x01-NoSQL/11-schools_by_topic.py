@@ -6,6 +6,6 @@ def schools_by_topic(mongo_collection, topic):
     arr = []
     for school in list(mongo_collection.find()):
         print(school)
-        if topic in school['topics']:
+        if topic in school.get('topics'):
             arr.append(school)
     return arr
