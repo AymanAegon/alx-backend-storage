@@ -3,9 +3,11 @@
 
 def schools_by_topic(mongo_collection, topic):
     """returns the list of school having a specific topic"""
-    arr = []
-    for school in list(mongo_collection.find()):
-        print(school)
-        if topic in school.get('topics'):
-            arr.append(school)
-    return arr
+    topic_filter = {
+        'topics': {
+            '$elemMatch': {
+                '$eq': topic,
+            },
+        },
+    }
+    return [doc for doc in mongo_collection.find(topic_filter)]
